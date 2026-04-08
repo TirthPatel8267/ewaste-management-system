@@ -1,36 +1,124 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+♻️ E-Waste Management System
 
-## Getting Started
+A modern full-stack web application to manage electronic waste efficiently with features like AI detection, pickup scheduling, tracking, and admin analytics.
 
-First, run the development server:
+---
 
-```bash
+🚀 Features
+
+👤 User Side
+
+- 🔐 Secure Login & Register (JWT Authentication)
+- 📦 Pickup Request System
+- 📍 Live Tracking (Order Status Based)
+- 💬 Feedback System
+- 🧮 Price Estimator (AI + Logic Based)
+
+🧑‍💼 Admin Panel
+
+- 📊 Analytics Dashboard (Pending / Completed / Stats)
+- 📋 Manage Pickup Requests
+- ✅ Approve / Assign / Complete Orders
+
+🚚 Collector Panel
+
+- 📦 Accept Pickup Requests
+- 🚀 Update Status (Accepted → Out for Pickup → Completed)
+
+---
+
+🤖 AI Features
+
+- 📸 Waste Detection (TensorFlow / MobileNet)
+- 💰 Smart Price Estimation (Scrap + Resale)
+
+---
+
+🛠️ Tech Stack
+
+Frontend
+
+- Next.js 16 (App Router)
+- Tailwind CSS (Modern UI)
+- AOS Animations
+
+Backend
+
+- Node.js
+- MongoDB + Mongoose
+- JWT Authentication
+
+Other
+
+- TensorFlow.js (AI)
+- React Charts
+- Leaflet (Tracking - optional)
+
+---
+
+📂 Project Structure
+
+app/
+ ├── api/
+ ├── dashboard/
+ ├── admin/
+ ├── collector/
+ ├── login/
+ ├── register/
+ ├── request/
+ ├── tracking/
+components/
+models/
+lib/
+
+---
+
+⚙️ Installation
+
+git clone https://github.com/TirthPatel8267/ewaste-management-system.git
+cd ewaste-management-system
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+🔐 Environment Variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Create ".env.local":
 
-## Learn More
+MONGODB_URI=your_mongodb_connection
+JWT_SECRET=your_secret_key
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+🌐 Live Demo
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+👉 (Add after deployment)
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+📸 Screenshots
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+(Add screenshots here later)
+
+---
+
+🎯 Future Improvements
+
+- 📧 Email Notifications
+- 🏆 Reward System
+- 📍 Google Maps Integration
+- 🤖 Advanced AI Model
+
+---
+
+👨‍💻 Author
+
+Tirth Patel
+GitHub: https://github.com/TirthPatel8267
+
+---
+
+⭐ Support
+
+If you like this project, give it a ⭐ on GitHub!
