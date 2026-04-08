@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+
+body {
+  background: #f3f4f6;
+  font-family: system-ui, sans-serif;
+}
+.card-hover {
+transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+transform: translateY(-8px);
+}
