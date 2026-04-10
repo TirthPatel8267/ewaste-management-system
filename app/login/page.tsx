@@ -34,7 +34,8 @@ export default function LoginPage() {
       } else if (data.role === "collector") {
         window.location.href = "/collector";
       } else {
-        window.location.href = "/dashboard"; // ✅ USER FIX
+        router.push("/dashboard"); // ✅ USER FIX
+        router.refresh
       }
     } else {
       alert(data.message);

@@ -14,7 +14,9 @@ export default function Page() {
 
       const data = await res.json();
 
-      if (!data?.user) {
+      console.log("AUTH CHECK:", data);
+
+      if (!data.user) {
         window.location.href = "/login";
       } else {
         setLoading(false);
