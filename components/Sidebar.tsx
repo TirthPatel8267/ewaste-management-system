@@ -11,6 +11,13 @@ const handleLogout = async () => {
 };
 
 export default function Sidebar() {
+  const handleLogout = async () => {
+  await fetch("/api/auth/logout", {
+    method: "POST",
+  });
+
+  window.location.href = "/login";
+};
   return (
     <div data-aos="fade-up" className="w-64 h-screen bg-green-700 text-white fixed left-0 top-0 p-6">
 

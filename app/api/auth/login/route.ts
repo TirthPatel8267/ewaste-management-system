@@ -10,7 +10,7 @@ export async function POST(req: Request) {
 
     const { email, password } = await req.json();
 
-    // 🔍 Check user
+    // 🔍 Find user
     const user = await User.findOne({ email });
 
     if (!user) {
@@ -30,26 +30,25 @@ export async function POST(req: Request) {
       });
     }
 
-    // 🎟 Create JWT token
+    // 🎟 Create JWT
     const token = signToken({
       id: user._id,
       role: user.role,
     });
 
-    // ✅ Response
     const res = NextResponse.json({
       success: true,
       role: user.role,
       message: "Login successful ✅",
     });
 
-    // 🍪 Set secure cookie
+    // 🍪 Save cookie
     res.cookies.set("token", token, {
       httpOnly: true,
       path: "/",
-      maxAge: 60 * 60 * 24 * 7, // 7 days
+      maxAge: 60 * 60 * 24 * 7,
       sameSite: "lax",
-      secure:false,
+      secure:process.env.NODE_ENV === "production",
     });
 
     return res;

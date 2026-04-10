@@ -11,45 +11,39 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const router = useRouter();
   const handleLogin = async (e: any) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    try {
-      const res = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-        credentials: "include", // ✅ important
-      });
+  try {
+    const res = await fetch("/api/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+      credentials: "include",
+    });
 
-      const data = await res.json();
+    const data = await res.json();
 
-      console.log("LOGIN RESPONSE:", data);
+    console.log("LOGIN RESPONSE:", data.role);
 
-      if (data.success) {
-        console.log("Login success", data.role);
-
-        // ✅ WAIT for cookie to be set
-        setTimeout(() => 
-        {
-          if (data.role === "admin") {
-            router.push("/admin");
-          } else if (data.role === "collector") {
-            router.push("/collector");
-          } else {
-            router.push("/dashboard");
-          }
-        }, 300); // 🔥 IMPORTANT DELAY
+    if (data.success) {
+      // 🔥 ROLE BASED REDIRECT
+      if (data.role === "admin") {
+        window.location.href = "/admin";
+      } else if (data.role === "collector") {
+        window.location.href = "/collector";
       } else {
-        alert(data.message || "Invalid Email or Password ❌");
+        window.location.href = "/dashboard"; // ✅ USER FIX
       }
-
-    } catch (error) {
-      console.error(error);
-      alert("Server Error ❌");
+    } else {
+      alert(data.message);
     }
-  };
+  } catch (error) {
+    console.log(error);
+    alert("Login failed ❌");
+  }
+};
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-100 via-white to-green-200 px-4">

@@ -2,23 +2,29 @@
 
 import { useEffect, useState } from "react";
 import DashboardClient from "@/components/DashboardClient";
-import AdminChart from "@/components/AdminChart";
-<AdminChart/>
 
 export default function Page() {
-  const [isAuth, setIsAuth] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const check = localStorage.getItem("isLoggedIn");
+    const checkAuth = async () => {
+      const res = await fetch("/api/auth/me", {
+        credentials: "include",
+      });
 
-    if (check === "true") {
-      setIsAuth(true);
-    } else {
-      window.location.href = "/login"; // force login
-    }
+      const data = await res.json();
+
+      if (!data?.user) {
+        window.location.href = "/login";
+      } else {
+        setLoading(false);
+      }
+    };
+
+    checkAuth();
   }, []);
 
-  if (!isAuth) return <p>Checking login...</p>;
+  if (loading) return <p>Checking login...</p>;
 
   return <DashboardClient />;
 }

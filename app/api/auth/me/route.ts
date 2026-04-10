@@ -3,17 +3,18 @@ import { cookies } from "next/headers";
 import { verifyToken } from "@/lib/jwt";
 
 export async function GET() {
-  const token = (await cookies()).get("token")?.value;
+  const cookieStore = await cookies();
+const token = cookieStore.get("token")?.value;
 
   if (!token) {
     return NextResponse.json({ user: null });
   }
 
-  const user = verifyToken(token);
+  const decoded = verifyToken(token);
 
-  if (!user) {
+  if (!decoded) {
     return NextResponse.json({ user: null });
   }
 
-  return NextResponse.json({ user });
+  return NextResponse.json({ user: decoded });
 }
