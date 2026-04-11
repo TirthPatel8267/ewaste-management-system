@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "node --max-old-space-size=4096 node_modules/next/dist/bin/next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"
@@ -14,7 +14,7 @@
     "aos": "^2.3.4",
     "bcryptjs": "^3.0.3",
     "chart.js": "^4.5.1",
-    "framer-motion": "^12.35.2",
+    "framer-motion": "^12.38.0",
     "jsonwebtoken": "^9.0.3",
     "jwt-decode": "^4.0.0",
     "leaflet": "^1.9.4",

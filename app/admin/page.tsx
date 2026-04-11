@@ -1,90 +1,88 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
 
 export default function AdminPage() {
-  const [stats, setStats] = useState<any>(null);
+  const [pickups, setPickups] = useState<any[]>([]);
+
+  // 📥 Fetch all pickups
+  const fetchPickups = async () => {
+    const res = await fetch("/api/admin/pickups");
+    const data = await res.json();
+    setPickups(data.pickups);
+  };
 
   useEffect(() => {
-    fetch("/api/admin/stats")
-      .then((res) => res.json())
-      .then((data) => setStats(data));
+    fetchPickups();
   }, []);
 
-  if (!stats) return <p className="p-6">Loading...</p>;
+  // 🔄 Update status
+  const updateStatus = async (id: string, status: string) => {
+    await fetch("/api/admin/update-status", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id, status }),
+    });
 
-  const chartData = [
-    { name: "Pending", value: stats.pending },
-    { name: "Approved", value: stats.approved },
-    { name: "Completed", value: stats.completed },
-  ];
+    fetchPickups(); // refresh
+  };
 
   return (
-    <div className="p-6 space-y-8">
+    <div className="p-6">
 
-      {/* TITLE */}
-      <h1 className="text-3xl font-bold text-green-600">
-        📊 Admin Analytics Dashboard
+      <h1 className="text-2xl font-bold mb-6 text-green-600">
+        Admin Dashboard
       </h1>
 
-      {/* CARDS */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+      <table className="w-full border border-gray-300">
+        <thead className="bg-green-100">
+          <tr>
+            <th className="p-2 border">Name</th>
+            <th className="p-2 border">Category</th>
+            <th className="p-2 border">Date</th>
+            <th className="p-2 border">Status</th>
+            <th className="p-2 border">Actions</th>
+          </tr>
+        </thead>
 
-        <div data-aos="fade-up" className="bg-white p-6 rounded-xl shadow">
-          <p>Total Pickups</p>
-          <h2 className="text-2xl font-bold text-green-600">
-            {stats.total}
-          </h2>
-        </div>
+        <tbody>
+          {pickups.map((p) => (
+            <tr key={p._id} className="text-center">
+              <td className="p-2 border">{p.name}</td>
+              <td className="p-2 border">{p.category}</td>
+              <td className="p-2 border">{p.date}</td>
+              <td className="p-2 border">{p.status}</td>
 
-        <div data-aos="fade-up" className="bg-yellow-100 p-6 rounded-xl shadow">
-          <p>Pending</p>
-          <h2 className="text-2xl font-bold">
-            {stats.pending}
-          </h2>
-        </div>
+              <td className="p-2 border space-x-2">
 
-        <div data-aos="fade-up" className="bg-blue-100 p-6 rounded-xl shadow">
-          <p>Approved</p>
-          <h2 className="text-2xl font-bold">
-            {stats.approved}
-          </h2>
-        </div>
+                <button
+                  onClick={() => updateStatus(p._id, "Approved")}
+                  className="bg-blue-500 text-white px-2 py-1 rounded"
+                >
+                  Approve
+                </button>
 
-        <div data-aos="fade-up" className="bg-green-100 p-6 rounded-xl shadow">
-          <p>Completed</p>
-          <h2 className="text-2xl font-bold">
-            {stats.completed}
-          </h2>
-        </div>
+                <button
+                  onClick={() => updateStatus(p._id, "Completed")}
+                  className="bg-green-600 text-white px-2 py-1 rounded"
+                >
+                  Complete
+                </button>
 
-      </div>
+                <button
+                  onClick={() => updateStatus(p._id, "Rejected")}
+                  className="bg-red-500 text-white px-2 py-1 rounded"
+                >
+                  Reject
+                </button>
 
-      {/* CHART */}
-      <div data-aos="fade-up" className="bg-white p-6 rounded-xl shadow">
-
-        <h2 className="text-xl font-bold mb-4">
-          Pickup Status Overview
-        </h2>
-
-        <ResponsiveContainer width="100%" height={300}>
-          <BarChart data={chartData}>
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip />
-            <Bar dataKey="value" />
-          </BarChart>
-        </ResponsiveContainer>
-
-      </div>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
 
     </div>
   );

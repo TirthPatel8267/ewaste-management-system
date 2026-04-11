@@ -1,11 +1,28 @@
-import { NextResponse } from "next/server";
 import connectDB from "@/lib/db";
 import Pickup from "@/models/Pickup";
+import { sendStatusEmail } from "@/lib/mail";
 
-export async function GET() {
-  await connectDB();
+export async function POST(req: Request) {
+  try {
+    await connectDB();
 
-  const data = await Pickup.find();
+    const { id, status } = await req.json();
 
-  return NextResponse.json(data);
+    const pickup = await Pickup.findByIdAndUpdate(
+      id,
+      { status },
+      { new: true }
+    );
+
+    // 📧 Send email when status changes
+    if (pickup?.email) {
+      await sendStatusEmail(pickup.email, pickup);
+    }
+
+    return Response.json({ success: true });
+
+  } catch (error) {
+    console.error(error);
+    return Response.json({ success: false });
+  }
 }

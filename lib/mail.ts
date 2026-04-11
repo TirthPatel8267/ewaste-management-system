@@ -1,4 +1,7 @@
 import nodemailer from "nodemailer";
+export async function sendEmail(to: string, pickupData: any) {
+  // your email logic
+}
 
 export async function sendStatusEmail(to: string, pickupData: any) {
   try {
