@@ -1,6 +1,6 @@
 import connectDB from "@/lib/db";
 import Pickup from "@/models/Pickup";
-import { sendEmail } from "@/lib/mail";
+import { sendStatusEmail } from "@/lib/mail";
 
 export async function POST(req: Request) {
   try {
@@ -19,7 +19,7 @@ export async function POST(req: Request) {
     });
 
     // ✅ SEND EMAIL TO USER
-    await sendEmail(body.email, body);
+    await sendStatusEmail(body.email,pickup);
 
     return Response.json({ success: true, pickup });
 
