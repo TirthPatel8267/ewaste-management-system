@@ -93,13 +93,7 @@ JWT_SECRET=your_secret_key
 
 🌐 Live Demo
 
-👉 (Add after deployment)
-
----
-
-📸 Screenshots
-
-(Add screenshots here later)
+👉 https://ewaste-management-system-tau.vercel.app/
 
 ---
 
@@ -116,6 +110,7 @@ JWT_SECRET=your_secret_key
 
 Tirth Patel
 GitHub: https://github.com/TirthPatel8267
+LinkedIn: https://www.linkedin.com/in/tirth-patel-4884b028b  
 
 ---
 
