@@ -9,8 +9,8 @@ import {
   Title,
   Tooltip,
   Legend,
+  Filler,
 } from "chart.js";
-
 import { Line } from "react-chartjs-2";
 
 ChartJS.register(
@@ -20,21 +20,60 @@ ChartJS.register(
   LineElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
+  Filler
 );
 
-export default function PickupChart() {
+export default function PickupChart({ chartData }: { chartData?: { labels: string[], data: number[] } }) {
   const data = {
-    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+    labels: chartData?.labels || ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
     datasets: [
       {
-        label: "E-Waste Pickups",
-        data: [5, 9, 7, 14, 10, 18],
-        borderColor: "#16a34a",
-        backgroundColor: "rgba(22,163,74,0.3)",
+        label: "Pickups",
+        data: chartData?.data || [0, 0, 0, 0, 0, 0],
+        borderColor: "#10b981",
+        backgroundColor: "rgba(16, 185, 129, 0.1)",
+        fill: true,
+        tension: 0.4,
+        pointBackgroundColor: "#ffffff",
+        pointBorderColor: "#10b981",
+        pointBorderWidth: 2,
+        pointRadius: 4,
+        pointHoverRadius: 6,
       },
     ],
   };
 
- return <Line data={data} options={{ responsive: true }} />;
+  const options = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: "#064e3b",
+        titleFont: { size: 14, weight: 'bold' as const },
+        bodyFont: { size: 13 },
+        padding: 12,
+        cornerRadius: 12,
+        displayColors: false,
+      },
+    },
+    scales: {
+      y: {
+        beginAtZero: true,
+        grid: { color: "rgba(0,0,0,0.03)" },
+        ticks: { font: { size: 11 } },
+      },
+      x: {
+        grid: { display: false },
+        ticks: { font: { size: 11 } },
+      },
+    },
+  };
+
+  return (
+    <div className="h-[250px] w-full">
+      <Line data={data} options={options} />
+    </div>
+  );
 }

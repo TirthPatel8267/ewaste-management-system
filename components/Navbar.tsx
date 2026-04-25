@@ -46,9 +46,6 @@ export default function Navbar() {
         {/* Menu */}
         <div className="flex items-center gap-6 text-white text-lg font-medium">
 
-          <Link href="/" className="hover:text-green-400 transition">
-            Home
-          </Link>
 
           <Link href="/dashboard" className="hover:text-green-400 transition">
             Dashboard
@@ -60,8 +57,8 @@ export default function Navbar() {
           <Link href="/tracking" className="hover:text-green-400 transition">
            Tracking
           </Link>
-          <Link href="/ai" className="hover:text-green-400 transition">
-          AI Detect
+          <Link href="/estimator" className="hover:text-green-400 transition">
+            Estimator
           </Link>
 
           <Link href="/feedback" className="hover:text-green-400 transition">

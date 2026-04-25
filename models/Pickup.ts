@@ -4,9 +4,14 @@ const PickupSchema = new mongoose.Schema({
   name: String,
   address: String,
   phone: String,
+  email: String,
   category: String,
   date: String,
   time: String,
+  userId: {
+    type: String,
+    required: false,
+  },
  status: {
   type: String,
   enum: ["Pending", "Approved", "Accepted", "Out for Pickup", "Completed"],
@@ -20,7 +25,7 @@ const PickupSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-});
+}, { strict: false, timestamps: true });
 
-export default mongoose.models.Pickup ||
-  mongoose.model("Pickup", PickupSchema);
+delete mongoose.models.Pickup;
+export default mongoose.model("Pickup", PickupSchema);

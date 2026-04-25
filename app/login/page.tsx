@@ -1,50 +1,51 @@
 "use client";
 
-import {useRouter} from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FaEnvelope, FaLock } from "react-icons/fa";
 import { useEffect } from "react";
+import Link from "next/link";
 
 export default function LoginPage() {
-  
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
   const handleLogin = async (e: any) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  try {
-    const res = await fetch("/api/auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-      credentials: "include",
-    });
+    try {
+      const res = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+        credentials: "include",
+      });
 
-    const data = await res.json();
+      const data = await res.json();
 
-    console.log("LOGIN RESPONSE:", data.role);
+      console.log("LOGIN RESPONSE:", data.role);
 
-    if (data.success) {
-      // 🔥 ROLE BASED REDIRECT
-      if (data.role === "admin") {
-        window.location.href = "/admin";
-      } else if (data.role === "collector") {
-        window.location.href = "/collector";
+      if (data.success) {
+        // 🔥 ROLE BASED REDIRECT
+        if (data.role === "admin") {
+          window.location.href = "/admin";
+        } else if (data.role === "collector") {
+          window.location.href = "/collector";
+        } else {
+          router.push("/dashboard"); // ✅ USER FIX
+          router.refresh
+        }
       } else {
-        router.push("/dashboard"); // ✅ USER FIX
-        router.refresh
+        alert(data.message);
       }
-    } else {
-      alert(data.message);
+    } catch (error) {
+      console.log(error);
+      alert("Login failed ❌");
     }
-  } catch (error) {
-    console.log(error);
-    alert("Login failed ❌");
-  }
-};
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-100 via-white to-green-200 px-4">
@@ -91,11 +92,13 @@ export default function LoginPage() {
           </div>
 
           {/* Forgot Password */}
-          <div className="text-right text-sm">
-            <a href="#" className="text-green-600 hover:underline">
+
+
+          <Link href="/forgot-password">
+            <p className="text-sm text-green-600 cursor-pointer">
               Forgot Password?
-            </a>
-          </div>
+            </p>
+          </Link>
 
           {/* Button */}
           <button

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import {
   FaUser,
   FaPhone,
@@ -13,10 +14,12 @@ import {
 } from "react-icons/fa";
 
 export default function RequestPage() {
+  const router = useRouter();
   const [form, setForm] = useState({
     name: "",
     address: "",
     phone: "",
+    email: "",
     category: "",
     date: "",
     time: "",
@@ -49,6 +52,7 @@ export default function RequestPage() {
 
       if (data.success) {
         alert("Pickup Request Submitted ✅");
+        router.push("/dashboard");
       } else {
         alert("Something went wrong ❌");
       }

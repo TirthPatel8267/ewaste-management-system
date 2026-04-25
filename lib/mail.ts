@@ -1,6 +1,27 @@
 import nodemailer from "nodemailer";
-export async function sendEmail(to: string, pickupData: any) {
-  // your email logic
+export async function sendEmail(to: string, options: { subject: string; html: string }) {
+  try {
+    const transporter = nodemailer.createTransport({
+      host: "smtp.gmail.com",
+      port: 465,
+      secure: true,
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
+    });
+
+    await transporter.sendMail({
+      from: `"E-Waste System" <${process.env.EMAIL_USER}>`,
+      to,
+      subject: options.subject,
+      html: options.html,
+    });
+
+    console.log(`Email sent to ${to} ✅`);
+  } catch (error) {
+    console.error("sendEmail Error:", error);
+  }
 }
 
 export async function sendStatusEmail(to: string, pickupData: any) {

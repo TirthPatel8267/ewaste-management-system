@@ -3,10 +3,14 @@ import mongoose from "mongoose";
 const UserSchema = new mongoose.Schema(
   {
     role: {
-  type: String,
-  enum: ["admin", "collector", "user"],
-  default: "user",
-},
+      type: String,
+      enum: ["admin", "collector", "user"],
+      default: "user",
+    },
+    name: {
+      type: String,
+      required: false,
+    },
     email: {
       type: String,
       required: true,
@@ -16,11 +20,18 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    //points: {
-     // type:Number,
-      //default: 0,
-    //},
+    points: {
+      type: Number,
+      default: 0,
+    },
+    resetToken: {
+      type: String,
+    },
+    resetTokenExpiry: {
+      type: Date,
+    },
   },
+
 
   { timestamps: true }
 );

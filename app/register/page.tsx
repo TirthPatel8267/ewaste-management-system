@@ -43,7 +43,7 @@ export default function RegisterPage() {
       <div className="absolute w-[300px] h-[300px] bg-green-500 opacity-20 blur-3xl rounded-full bottom-[-100px] right-[-100px]" />
 
       {/* Card */}
-      <div className="relative bg-white/70 backdrop-blur-xl p-8 rounded-3xl shadow-2xl w-[1000px] border border-white/40">
+      <div className="relative bg-white/70 backdrop-blur-xl p-8 rounded-3xl shadow-2xl w-[380px] border border-white/40">
 
         {/* Title */}
         <h2 className="text-3xl font-bold text-center text-green-700 mb-6">
