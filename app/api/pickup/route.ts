@@ -16,7 +16,7 @@ export async function POST(req: Request) {
     let userId = null;
 
     if (token) {
-      const decoded = verifyToken(token);
+      const decoded = verifyToken(token) as any;
       if (decoded && decoded.id) {
         userId = decoded.id;
       }

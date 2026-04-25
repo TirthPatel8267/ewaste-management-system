@@ -16,7 +16,7 @@ export async function GET() {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const decoded = verifyToken(token);
+    const decoded = verifyToken(token) as any;
     if (!decoded || !decoded.id) {
       return NextResponse.json({ error: "Invalid token" }, { status: 401 });
     }
@@ -30,7 +30,7 @@ export async function GET() {
     const requests = await Pickup.find({ 
       $or: [
         { userId: userId }, 
-        { email: user.email }
+        { email: user?.email || "" }
       ] 
     }).sort({ createdAt: -1 });
 

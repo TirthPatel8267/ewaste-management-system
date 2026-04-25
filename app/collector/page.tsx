@@ -1,11 +1,22 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import {
   FaUser,
   FaMapMarkerAlt,
   FaCheckCircle,
   FaTruck,
+  FaBell,
+  FaBoxes,
+  FaPercentage,
+  FaArrowUp,
+  FaPhone,
+  FaCalendarAlt,
+  FaClock,
+  FaLeaf,
+  FaChartLine,
+  FaMoneyBillWave,
+  FaFire,
 } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 import CountUp from "react-countup";

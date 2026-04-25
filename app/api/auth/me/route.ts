@@ -12,8 +12,8 @@ const token = cookieStore.get("token")?.value;
     return NextResponse.json({ user: null });
   }
 
-  const decoded = verifyToken(token);
-
+  const decoded = verifyToken(token) as any;
+  
   if (!decoded || !decoded.id) {
     return NextResponse.json({ user: null });
   }

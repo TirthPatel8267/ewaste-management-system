@@ -13,12 +13,12 @@ export async function POST(req: Request) {
     { new: true }
   );
 
-  if (!pickup) {
-    return Response.json({ success: false, error: "Pickup not found" }, { status: 404 });
+  if (!pickup || !pickup.email) {
+    return Response.json({ success: false, error: "Pickup or email not found" }, { status: 404 });
   }
 
   // 🔥 SEND STATUS EMAIL
-  await sendStatusEmail(pickup.email, pickup);
+  await sendStatusEmail(pickup.email as string, pickup);
 
   return Response.json({ success: true });
 }
